@@ -35,32 +35,66 @@ PathVQA-DualTrack/
     ├── run_baselines.py    # Inference scripts for baselines
     └── evaluate.py         # Evaluation and scoring pipeline
 ```
-## 🚀 Quick Start & Reproduction
+# 🚀 Quick Start & Reproduction
 
-To facilitate full reproducibility of the experimental results reported in the paper, please follow the step-by-step instructions below.
+# To facilitate full reproducibility of the experimental results reported in the paper, please follow the step-by-step instructions below.
 
-### Step 1: Environment Setup
-First, clone the repository and install the required dependencies. We recommend using a virtual environment (e.g., Conda).
+# Step 1: Environment Setup
+# Clone the repository and install the required dependencies. We recommend using a virtual environment (e.g., Conda).
 
-```bash
-git clone [https://github.com/your-username/PathVQA-DualTrack.git](https://github.com/your-username/PathVQA-DualTrack.git)
+git clone https://github.com/your-username/PathVQA-DualTrack.git
 cd PathVQA-DualTrack
+
+# Create and activate a virtual environment
 conda create -n pathvqa python=3.10 -y
 conda activate pathvqa
+
+# Install core dependencies (PyTorch, Hugging Face, PEFT, Gradio, etc.)
 pip install -r requirements.txt
-```
 
-Step 2: Download Base Model Weights
-The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
 
-1.Go to the model page and agree to the Health AI Developer Foundations License.
+# Step 2: Download Base Model Weights
+# The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
 
-2.Log in to your Hugging Face account via the CLI using your access token.
-
-3.Download the weights to a local directory.
+# Go to the model page and agree to the Health AI Developer Foundations License.
+# Log in to your Hugging Face account via the CLI using your access token.
+# Download the weights to a local directory.
 
 # Login with your HF token
 huggingface-cli login
 
 # Download the model weights locally
 huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
+
+
+# Step 3: QLoRA Instruction Tuning
+# Once the dataset (PathVQA) is prepared in the ./data directory, you can initiate the Parameter-Efficient Fine-Tuning (PEFT) process. The train_qlora.py script automatically applies the Answer-only Loss masking strategy.
+
+python src/train_qlora.py \
+    --model_name_or_path ./weights/medgemma-1.5-4b-it \
+    --data_path ./data/pathvqa/train.json \
+    --output_dir ./checkpoints/pathvqa_qlora \
+    --learning_rate 2e-4 \
+    --num_train_epochs 3 \
+    --per_device_train_batch_size 4 \
+    --gradient_accumulation_steps 4
+
+
+# Step 4: Inference and Evaluation
+# To evaluate the fine-tuned model or run baseline comparisons, use the provided evaluation scripts. The evaluate.py script integrates the dual-track decoding engine and computes multi-dimensional semantic metrics.
+
+# Evaluate the fine-tuned model:
+python src/evaluate.py \
+    --base_model ./weights/medgemma-1.5-4b-it \
+    --lora_weights ./checkpoints/pathvqa_qlora \
+    --test_data ./data/pathvqa/test.json \
+    --output_results ./results/ours_evaluation.json
+
+# Run baseline inference (optional):
+python src/run_baselines.py \
+    --model_name qwen2.5-vl-7b \
+    --test_data ./data/pathvqa/test.json \
+    --output_results ./results/baseline_results.json
+
+# Launch the Interactive Web UI:
+python src/app.py
