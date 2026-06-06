@@ -1,0 +1,37 @@
+# ==========================================
+# Core Deep Learning & Vision
+# ==========================================
+torch>=2.0.0
+torchvision
+Pillow>=9.0.0
+
+# ==========================================
+# Hugging Face Ecosystem (LLM & PEFT)
+# ==========================================
+transformers>=4.38.0
+peft>=0.8.2                 # 用于 LoRA/QLoRA 微调
+accelerate>=0.27.0          # 用于高效多卡或大模型加载
+bitsandbytes>=0.41.0        # 用于 4-bit/8-bit 量化 (QLoRA 必备)
+datasets>=2.16.0            # 用于高效加载和处理数据集
+huggingface-hub             # 用于下载 MedGemma 权重
+
+# ==========================================
+# Evaluation Metrics (NLP & Semantic)
+# ==========================================
+nltk                        # 用于计算 BLEU 等基础文本指标
+bert-score                  # 用于计算 WBSS, CBSS 中的深层语义相似度
+scikit-learn                # 用于部分统计和 F1 score 计算
+scipy
+
+# ==========================================
+# Web UI Interface
+# ==========================================
+gradio>=4.0.0               # 如果你的 UI 是用 Gradio 写的
+# streamlit>=1.30.0         # 如果你的 UI 是用 Streamlit 写的 (按需取消注释)
+
+# ==========================================
+# Utilities
+# ==========================================
+numpy
+pandas
+tqdm
