@@ -54,11 +54,11 @@ pip install -r requirements.txt
 
 
 # Step 2: Download Base Model Weights
-# The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
+The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
 
-# Go to the model page and agree to the Health AI Developer Foundations License.
-# Log in to your Hugging Face account via the CLI using your access token.
-# Download the weights to a local directory.
+1.Go to the model page and agree to the Health AI Developer Foundations License.
+2.Log in to your Hugging Face account via the CLI using your access token.
+3.Download the weights to a local directory.
 
 # Login with your HF token
 huggingface-cli login
@@ -68,7 +68,7 @@ huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemm
 
 
 # Step 3: QLoRA Instruction Tuning
-# Once the dataset (PathVQA) is prepared in the ./data directory, you can initiate the Parameter-Efficient Fine-Tuning (PEFT) process. The train_qlora.py script automatically applies the Answer-only Loss masking strategy.
+Once the dataset (PathVQA) is prepared in the ./data directory, you can initiate the Parameter-Efficient Fine-Tuning (PEFT) process. The train_qlora.py script automatically applies the Answer-only Loss masking strategy.
 
 python src/train_qlora.py \
     --model_name_or_path ./weights/medgemma-1.5-4b-it \
