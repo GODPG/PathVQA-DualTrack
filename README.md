@@ -12,6 +12,11 @@ Medical Visual Question Answering (Med-VQA) in pathology faces unique challenges
 - 🛤️ **Dual-Track Decoding Engine:** A specialized log-prob scoring mechanism for closed-ended questions and optimized autoregressive generation for open-ended questions.
 - 📊 **Multi-dimensional Semantic Evaluation:** Comprehensive metrics (WBSS, CBSS, Exact/Relaxed Match) for rigorous pathology VQA benchmarking.
 
+## 🖥️ Interactive Web UI
+We provide a user-friendly web interface for real-time inference and analysis. The UI allows users to upload pathology slides, input clinical questions, and directly observe the dual-track decoding results.
+
+![PathVQA Web UI](UI.png)
+
 ## 📥 Model Weights
 The base model used in this project is **MedGemma-1.5-4B-IT**. 
 
