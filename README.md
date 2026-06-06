@@ -53,9 +53,52 @@ pip install -r requirements.txt
 ```
 
 Step 2: Download Base Model Weights
+
 The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
+
 1.Go to the model page and agree to the Health AI Developer Foundations License.
 
 2.Log in to your Hugging Face account via the CLI using your access token.
 
 3.Download the weights to a local directory.
+
+```bash
+# Login with your HF token
+huggingface-cli login
+# Download the model weights locally
+huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
+```
+
+Step 3: QLoRA Instruction Tuning
+
+Once the dataset (PathVQA) is prepared in the ./data directory, you can initiate the Parameter-Efficient Fine-Tuning (PEFT) process. The train_qlora.py script automatically applies the Answer-only Loss masking strategy.
+
+```bash
+# Login with your HF token
+huggingface-cli login
+# Download the model weights locally
+huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
+```
+
+Step 4: Inference and Evaluation
+
+To evaluate the fine-tuned model or run baseline comparisons, use the provided evaluation scripts. The evaluate.py script integrates the dual-track decoding engine and computes multi-dimensional semantic metrics.
+
+Evaluate the fine-tuned model:
+
+```bash
+python src/evaluate.py \
+    --base_model ./weights/medgemma-1.5-4b-it \
+    --lora_weights ./checkpoints/pathvqa_qlora \
+    --test_data ./data/pathvqa/test.json \
+    --output_results ./results/ours_evaluation.json
+```
+
+Run baseline inference (optional):
+
+```bash
+python src/run_baselines.py \
+    --model_name qwen2.5-vl-7b \
+    --test_data ./data/pathvqa/test.json \
+    --output_results ./results/baseline_results.json
+```
