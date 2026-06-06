@@ -34,3 +34,33 @@ PathVQA-DualTrack/
     ├── metrics.py          # WBSS, CBSS, and accuracy metrics
     ├── run_baselines.py    # Inference scripts for baselines
     └── evaluate.py         # Evaluation and scoring pipeline
+```
+## 🚀 Quick Start & Reproduction
+
+To facilitate full reproducibility of the experimental results reported in the paper, please follow the step-by-step instructions below.
+
+### Step 1: Environment Setup
+First, clone the repository and install the required dependencies. We recommend using a virtual environment (e.g., Conda).
+
+```bash
+git clone [https://github.com/your-username/PathVQA-DualTrack.git](https://github.com/your-username/PathVQA-DualTrack.git)
+cd PathVQA-DualTrack
+conda create -n pathvqa python=3.10 -y
+conda activate pathvqa
+pip install -r requirements.txt
+```
+
+Step 2: Download Base Model Weights
+The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
+
+1.Go to the model page and agree to the Health AI Developer Foundations License.
+
+2.Log in to your Hugging Face account via the CLI using your access token.
+
+3.Download the weights to a local directory.
+
+# Login with your HF token
+huggingface-cli login
+
+# Download the model weights locally
+huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
