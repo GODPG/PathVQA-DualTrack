@@ -35,11 +35,11 @@ PathVQA-DualTrack/
     ├── run_baselines.py    # Inference scripts for baselines
     └── evaluate.py         # Evaluation and scoring pipeline
 ```
-🚀 Quick Start & Reproduction
+## 🚀 Quick Start & Reproduction
 
 To facilitate full reproducibility of the experimental results reported in the paper, please follow the step-by-step instructions below.
 
-Step 1: Environment Setup
+# Step 1: Environment Setup
 Clone the repository and install the required dependencies. We recommend using a virtual environment (e.g., Conda).
 
 ```bash
@@ -52,7 +52,7 @@ conda activate pathvqa
 pip install -r requirements.txt
 ```
 
-Step 2: Download Base Model Weights
+# Step 2: Download Base Model Weights
 
 The base model google/medgemma-1.5-4b-it requires access granted via Hugging Face.
 
@@ -69,7 +69,7 @@ huggingface-cli login
 huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
 ```
 
-Step 3: QLoRA Instruction Tuning
+# Step 3: QLoRA Instruction Tuning
 
 Once the dataset (PathVQA) is prepared in the ./data directory, you can initiate the Parameter-Efficient Fine-Tuning (PEFT) process. The train_qlora.py script automatically applies the Answer-only Loss masking strategy.
 
@@ -80,7 +80,7 @@ huggingface-cli login
 huggingface-cli download google/medgemma-1.5-4b-it --local-dir ./weights/medgemma-1.5-4b-it
 ```
 
-Step 4: Inference and Evaluation
+# Step 4: Inference and Evaluation
 
 To evaluate the fine-tuned model or run baseline comparisons, use the provided evaluation scripts. The evaluate.py script integrates the dual-track decoding engine and computes multi-dimensional semantic metrics.
 
